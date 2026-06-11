@@ -1,15 +1,13 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/flying-lama/cert-manager-webhook-inwx)](https://goreportcard.com/report/github.com/flying-lama/cert-manager-webhook-inwx)
-[![License](https://img.shields.io/github/license/flying-lama/cert-manager-webhook-inwx)](https://github.com/flying-lama/cert-manager-webhook-inwx/blob/main/LICENSE)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/flying-lama/cert-manager-webhook-inwx)
+[![Go Report Card](https://goreportcard.com/badge/github.com/rubenv/cert-manager-webhook-inwx)](https://goreportcard.com/report/github.com/rubenv/cert-manager-webhook-inwx)
+[![License](https://img.shields.io/github/license/rubenv/cert-manager-webhook-inwx)](https://github.com/rubenv/cert-manager-webhook-inwx/blob/main/LICENSE)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rubenv/cert-manager-webhook-inwx)
 
-cert-manager-webhook-inwx
-===========================
+# cert-manager-webhook-inwx
 
 [cert-manager](https://cert-manager.io) webhook implementation for use
 with [INWX](https://www.inwx.de) provider for solving [ACME DNS-01 challenges](https://cert-manager.io/docs/configuration/acme/dns01/).
 
-Usage
------
+## Usage
 
 For the INWX-specific configuration, you will need to create a Kubernetes
 secret, containing your username, password and OTP key (optional).
@@ -28,7 +26,8 @@ kubectl create secret generic inwx-credentials \
     --dry-run=client -o yaml | kubectl apply -f -
 ```
 
-Ater creating the secret, configure a ``ClusterIssuer`` or ``Issuer`` to have the following configuration:
+Ater creating the secret, configure a `ClusterIssuer` or `Issuer` to have the following configuration:
+
 ```yml
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer # or "Issuer"
@@ -44,7 +43,7 @@ spec:
     solvers:
       - dns01:
           webhook:
-            groupName: cert-manager-webhook-inwx.flying-lama.github.com
+            groupName: cert-manager-webhook-inwx.rubenv.github.com
             solverName: inwx
             config:
               usernameSecretKeyRef:
@@ -57,21 +56,20 @@ spec:
                 name: inwx-credentials
                 key: otpKey
 ```
+
 For more details, please refer to https://cert-manager.io/docs/configuration/acme/dns01/#configuring-dns01-challenge-provider
 
 Now, the actual webhook can be installed via Helm chart:
-```
-helm repo add flying-lama-cert-manager-webhook-inwx https://flying-lama.github.io/cert-manager-webhook-inwx
 
-helm install cert-manager-webhook-inwx flying-lama-cert-manager-webhook-inwx/cert-manager-webhook-inwx --namespace cert-manager
 ```
+helm repo add rubenv-cert-manager-webhook-inwx https://rubenv.github.io/cert-manager-webhook-inwx
+
+helm install cert-manager-webhook-inwx rubenv-cert-manager-webhook-inwx/cert-manager-webhook-inwx --namespace cert-manager
+```
+
 From that point, the issuer configured above should be able to solve
-the DNS01 challenges using ``cert-manager-webhook-inwx``.
+the DNS01 challenges using `cert-manager-webhook-inwx`.
 
-
-License
--------
+## License
 
 [Apache 2 License](./LICENSE)
-
-

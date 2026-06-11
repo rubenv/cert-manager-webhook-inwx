@@ -1,4 +1,4 @@
-groupName: cert-manager-webhook-inwx.flying-lama.github.com
+groupName: cert-manager-webhook-inwx.rubenv.github.com
 
 credentialsSecretRefs:
   - inwx-credentials
@@ -11,7 +11,7 @@ certManager:
   serviceAccountName: cert-manager
 
 image:
-  repository: ghcr.io/flying-lama/cert-manager-webhook-inwx
+  repository: ghcr.io/rubenv/cert-manager-webhook-inwx
   tag: latest
   pullPolicy: Always
 

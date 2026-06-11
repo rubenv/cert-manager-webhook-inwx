@@ -1,4 +1,4 @@
-module github.com/flying-lama/cert-manager-webhook-inwx
+module github.com/rubenv/cert-manager-webhook-inwx
 
 go 1.25.0
 
